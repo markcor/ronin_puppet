@@ -107,14 +107,20 @@ function Install-ZipPrerequ {
   param (
     [string] $ext_src = "https://s3-us-west-2.amazonaws.com/ronin-puppet-package-repo/Windows/prerequisites",
     [string] $local_dir = "$env:systemdrive\BootStrap",
-    [string] $work_dir = "$env:systemdrive\scratch",
-    [string] $git = "Git-2.18.0-64-bit.exe",
-    [string] $puppet = "puppet-agent-6.0.0-x64.msi"
+    [string] $work_dir = "$env:systemdrive\scratch"
   )
   begin {
     Write-Log -message ('{0} :: begin - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
   }
   process {
+
+    if ($env:PROCESSOR_ARCHITECTURE -like 'amd64') {
+      $git = "Git-2.18.0-64-bit.exe"
+      $puppet = "puppet-agent-6.0.0-x64.msi"
+    } else {
+      $git = "Git-2.18.0-64-bit.exe"
+      $puppet = "puppet-agent-6.0.0-x64.msi"
+    }
 
     remove-item $local_dir   -Recurse  -force
     New-Item -path $work_dir -ItemType "directory"
