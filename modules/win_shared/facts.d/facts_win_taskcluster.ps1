@@ -61,8 +61,8 @@ write-host "custom_win_taskcluster_proxy_version=$proxy_version"
 if (test-path "HKLM:\SOFTWARE\Mozilla\ronin_puppet") {
     $gw_workertype = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").workerType
         if ($gw_workertype -eq gecko-t-win-talos) {
-            $ms_number = ($env:computername) -replace '\D+(\d+)','$1'
-            write-host $ms_number
+            $ms_number = (($env:computername) -replace 't-w1064-ms-','')
+            $gw_workertype = "gecko-t-win-talos-$ms_number"
         }
     write-host "custom_win_gw_workerType=$gw_workertype"
 }
