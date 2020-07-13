@@ -6,7 +6,7 @@ defaults:
 
 hierarchy:
   - name: "Per Windows workerType data"
-    path: "os/Windows/worker/%{facts.custom_win_gw_workertype}.yaml"
+    path: "os/Windows/worker/gecko-t-win-talos.yaml"
 
   - name: "Per-OS defaults"
     path: "os/%{facts.os.family}.yaml"
