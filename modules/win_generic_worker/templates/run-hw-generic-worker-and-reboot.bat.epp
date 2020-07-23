@@ -1,4 +1,5 @@
 @echo off
+exit
 
 if exist <%= $win_generic_worker::generic_worker_dir %>\generic-worker.log copy /y <%= $win_generic_worker::generic_worker_dir %>\generic-worker.log <%= $facts[custom_win_roninslogdir] %>\generic-worker-%time:~-5%.bak
 type NUL > <%= $win_generic_worker::generic_worker_dir %>\generic-worker.log
