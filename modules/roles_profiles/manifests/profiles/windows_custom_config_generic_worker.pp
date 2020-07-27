@@ -30,7 +30,7 @@ class roles_profiles::profiles::windows_custom_config_generic_worker {
             $wstaudience              = lookup('windows.taskcluster.wstaudience')
             $wstserverurl             = lookup('windows.taskcluster.wstserverurl')
             $idle_timeout             = lookup('win-worker.generic_worker.idle_timeout')
-            $client_id                = lookup('win-worker.generic_worker.client_id')
+            $client_id                = 'mozilla-auth0/ad|Mozilla-LDAP|mcornmesser/releng/generic-worker/datacenter-gecko-t-win-talos'
             $provisioner_id           = lookup('win-worker.generic_worker.provisioner_id')
             $worker_type              = $facts['custom_win_gw_workertype']
 
