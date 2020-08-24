@@ -12,7 +12,7 @@
   "disableReboots": true,
   "downloadsDir": "<%= $win_generic_worker::custom_config::downloads_dir %>",
   "ed25519SigningKeyLocation": "<%= $win_generic_worker::custom_config::ed25519signingkey %>",
-  "idleTimeoutSecs": <%= $win_generic_worker::custom_config::idle_timeout %>,
+  "idleTimeoutSecs": 600,
   "instanceId": "",
   "instanceType": "",
   "livelogExecutable": "<%= $win_generic_worker::custom_config::livelog_exe %>",
