@@ -39,7 +39,7 @@ set errorlevel=
 <%= $win_generic_worker::run_generic_worker_command %> >> <%= $win_generic_worker::generic_worker_dir %>\generic-worker.log 2>&1
 set gw_exit_code=%errorlevel%
 
-powershell Remove-NetFirewallRule -DisplayName "allow user firefox"
+netsh advfirewall firewall delete rule name=User Firefox
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`powershell -command "(New-TimeSpan -Start (Get-Date "01/01/1970") -End (Get-Date)).TotalSeconds"`) DO (
 SET task_stop=%%F
