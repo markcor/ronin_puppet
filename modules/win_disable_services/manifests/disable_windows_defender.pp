@@ -38,11 +38,11 @@ class win_disable_services::disable_windows_defender {
             type => dword,
             data => '1',
         }
-        registry::value { 'DisableAntiSpyware' :
-            key  => $win_defend_key,
-            type => dword,
-            data => '1',
-        }
+        #registry::value { 'DisableAntiSpyware' :
+            #key  => $win_defend_key,
+            #type => dword,
+            #data => '1',
+        #}
 
         # Windows defender supporting services
         # This will fail on first run and will need a reboot
