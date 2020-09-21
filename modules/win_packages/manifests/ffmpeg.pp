@@ -7,7 +7,7 @@ class win_packages::ffmpeg (
 ) {
 
     $ffmpeg_dir = "${facts['custom_win_systemdrive']}\\ffmpeg"
-    $ffmpeg_bin = "${ffmpeg_dir}\\bin"
+    $ffmpeg_bin = "${ffmpeg_dir}\\ffmpeg-${version}\\bin"
 
     win_packages::win_zip_pkg { "ffmpeg-${version}":
         pkg         => "ffmpeg-${version}.zip",
