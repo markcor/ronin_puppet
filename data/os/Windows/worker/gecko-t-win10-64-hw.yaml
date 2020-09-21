@@ -28,8 +28,8 @@ win-worker:
     source: "https://ronin-puppet-package-repo.s3-us-west-2.amazonaws.com/Windows/mozilla/mozprofilerprobe.mof"
     local:  "%{facts.custom_win_roninprogramdata}\\mozprofilerprobe.mof"
 
-    # Applications
-    ffmpeg:
-      version: '20200809-6e951d0-win64-static'
-    vnc_msi:  "UltraVnc_1223_X64.msi"
-    vnc_name:  "UltraVnc"
+  # Applications
+  ffmpeg:
+    version: '20200809-6e951d0-win64-static'
+  vnc_msi:  "UltraVnc_1223_X64.msi"
+  vnc_name:  "UltraVnc"
