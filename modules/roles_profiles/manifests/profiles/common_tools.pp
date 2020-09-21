@@ -14,6 +14,11 @@ class roles_profiles::profiles::common_tools {
             if $facts['custom_win_location'] == 'aws' {
                 include win_packages::nircmd
             }
+            if $facts['custom_win_location'] == 'datacenter' {
+                class{ 'win_packages::ffmpeg':
+                    version => lookup('win-worker.ffmpeg.version')
+                }
+            }
             # Bug List
             # https://bugzilla.mozilla.org/show_bug.cgi?id=1510837
             # nircmd
