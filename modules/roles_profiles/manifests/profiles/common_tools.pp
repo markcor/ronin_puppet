@@ -18,9 +18,9 @@ class roles_profiles::profiles::common_tools {
                 class{ 'win_packages::ffmpeg':
                     version => lookup('win-worker.ffmpeg.version')
                 }
-                class{ 'win_packages::imagemagick':
-                    version => lookup('win-worker.imagemagick.version')
-                }
+                #class{ 'win_packages::imagemagick':
+                    #version => lookup('win-worker.imagemagick.version')
+                #}
             }
             # Bug List
             # https://bugzilla.mozilla.org/show_bug.cgi?id=1510837
