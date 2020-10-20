@@ -13,7 +13,7 @@ class roles_profiles::profiles::microsoft_updates {
     case $::operatingsystem {
         'Windows': {
             # https://bugzilla.mozilla.org/show_bug.cgi?id=1671214
-            windows_updates::kb {'kb4580328':
+            windows_updates::kb {'KB4580328':
                 ensure => 'present'
             }
 
