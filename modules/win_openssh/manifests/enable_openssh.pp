@@ -6,8 +6,12 @@ class win_openssh::enable_openssh {
 
     exec { 'enable_openssh':
         command  => 'Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0',
-        #unless    =>
+        unless   => 'get-service sshd',
         provider => powershell,
+    }
+    service { 'sshd':
+        ensure  => running,
+        require => Exec['enable_openssh'],
     }
 }
 # Bug List
