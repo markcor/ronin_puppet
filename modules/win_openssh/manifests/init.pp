@@ -9,9 +9,10 @@ class win_openssh (
 ){
 
     if $::operatingsystem == 'Windows' {
-        include win_openssh::install
-        include win_openssh::configuration
-        include win_openssh::service
+        #include win_openssh::install
+        #include win_openssh::configuration
+        # include win_openssh::service
+        include win_openssh::enable_openssh
     } else {
         fail("${module_name} does not support ${::operatingsystem}")
     }
