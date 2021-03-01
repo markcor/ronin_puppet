@@ -104,8 +104,8 @@ function Install-BootstrapModule {
 $workerType = 'gecko-t-win10-64-hw-testpool'
 $src_Organisation = 'markcor'
 $src_Repository = 'ronin_puppet'
-$src_Revision = 'master'
-$image_provisioner = 'bug1695355'
+$src_Revision = 'bug1695355'
+$image_provisioner = 'mdt'
 $max_boots = 999
 
 # Ensuring scripts can run uninhibited
