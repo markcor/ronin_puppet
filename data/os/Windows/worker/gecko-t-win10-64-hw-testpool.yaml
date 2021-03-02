@@ -28,7 +28,7 @@ win-worker:
     s3_folder: "%{facts.custom_win_gw_workertype}"
 
   # Mozilla-build
-  mozilla_build:
+  mozilla_build2:
     version: '3.2'
     hg_version: '4.7.1'
     py3_pip_version: '19.2.1'
