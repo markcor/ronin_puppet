@@ -25,7 +25,8 @@ class roles_profiles::profiles::windows_worker_runner {
 
             #$desired_proxy_version = lookup('win-worker.taskcluster.proxy.version')
             $desired_proxy_version = 'test_value'
-            $proxy_name            = lookup('win-worker.taskcluster.proxy.name')
+            #$proxy_name            = lookup('win-worker.taskcluster.proxy.name')
+            $proxy_name = 'name'
 
             # Livelog command does not have a version flag
             # Locking the version file name
