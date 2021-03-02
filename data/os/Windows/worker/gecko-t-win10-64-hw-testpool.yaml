@@ -3,26 +3,27 @@
 win-worker:
   # generic-worker
   generic_worker:
+    # File versions
     name: "generic-worker-multiuser-windows-amd64"
     version: '38.0.1'
 
-    taskcluster:
-        worker_runner:
-            name: 'start-worker-windows-amd64'
-            version: '38.0.1'
-            provider: "standalone"
-            implementation: "generic-worker"
-        proxy:
-            name: "taskcluster-proxy-windows-amd64"
-            version: '38.0.1'
-        # Refrencing the file directly with version in it
-        # Since there is no programtic way to check the version of the livelog exe
-        livelog:
-            name: "livelog-windows-amd64"
-            version: '38.0.1'
-        client_id: "gecko-t-win10-64-hw-testpool"
-        worker_pool_id: "gecko-t/gecko-t-win10-64-hw-testpool"
-        worker_group: "mdc1"
+  taskcluster:
+    worker_runner:
+        name: 'start-worker-windows-amd64'
+        version: '38.0.1'
+        provider: "azure"
+        implementation: "generic-worker"
+    proxy:
+        name: "taskcluster-proxy-windows-amd64"
+        version: '38.0.1'
+    # Refrencing the file directly with version in it
+    # Since there is no programtic way to check the version of the livelog exe
+    livelog:
+        name: "livelog-windows-amd64"
+        version: '38.0.1'
+    client_id: "gecko-t-win10-64-hw-testpool"
+    worker_pool_id: "gecko-t/gecko-t-win10-64-hw-testpool"
+    worker_group: "mdc1"
 
   # Specify the folder of the S3 logging bucket
     s3_folder: "%{facts.custom_win_gw_workertype}"

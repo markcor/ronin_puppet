@@ -29,6 +29,6 @@ class roles_profiles::roles::geckotwin1064hwtestpool {
     #include roles_profiles::profiles::windows_custom_config_generic_worker
     include roles_profiles::profiles::microsoft_tools
     include roles_profiles::profiles::google_chrome
-    #include roles_profiles::profiles::windows_worker_runner
+    include roles_profiles::profiles::windows_worker_runner
     #include roles_profiles::profiles::virtual_drivers
 }
