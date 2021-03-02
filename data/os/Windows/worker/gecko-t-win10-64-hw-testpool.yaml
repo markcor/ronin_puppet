@@ -45,3 +45,5 @@ win-worker:
   vnc_name:  "UltraVnc"
   vac:
     version: '464'
+  nssm:
+    version: '2.24'
