@@ -299,11 +299,8 @@ $reboot_count_exists = Get-ItemProperty HKLM:\SOFTWARE\Mozilla\ronin_puppet rebo
   Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name reboot_count -value $new_count -force
 }
 If ($bootstrap_stage -eq 'complete') {
-  Check-AzVM-Name
   Run-MaintainSystem
-  if (((Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").inmutable) -eq 'false') {
-    Puppet-Run
-  }
+  Puppet-Run
   StartWorkerRunner
   Exit-PSSession
 } else {
