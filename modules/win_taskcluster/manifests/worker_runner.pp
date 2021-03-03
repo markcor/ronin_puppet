@@ -49,6 +49,11 @@ class win_taskcluster::worker_runner (
             content   => epp('win_taskcluster/standalone_runner.yml.epp'),
         }
     }
+    elsif $provider == 'static' {
+        file { $runner_yml:
+            content   => epp('win_taskcluster/static_runner.yml.epp'),
+        }
+    }
     else {
         file { $runner_yml:
             content   => epp('win_taskcluster/runner.yml.epp'),

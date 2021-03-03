@@ -40,7 +40,7 @@ class roles_profiles::profiles::windows_worker_runner {
 
 
             case $provider {
-                'standalone': {
+                'standalone', 'static': {
                     $taskcluster_root_url  = lookup('windows.taskcluster.root_url')
                     $client_id             = lookup('win-worker.taskcluster.client_id')
                     $access_token          = lookup('taskcluster_access_token')
