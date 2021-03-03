@@ -1,6 +1,7 @@
 provider:
     providerType: static
     rootURL: <%= $win_taskcluster::worker_runner::root_url %>
+    providerID: {}
     clientID: <%= $win_taskcluster::worker_runner::client_id %>
     accessToken: <%= $win_taskcluster::worker_runner::access_token %>
     workerPoolID: <%= $win_taskcluster::worker_runner::worker_pool_id %>
