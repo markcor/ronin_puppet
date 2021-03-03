@@ -94,6 +94,7 @@ class roles_profiles::profiles::windows_worker_runner {
                 runner_log             => $runner_log,
                 nssm_exe               => $nssm_exe,
                 # Runner yaml file
+                access_token           => $access_token,
                 provider               => $provider,
                 implementation         => $implementation,
                 root_url               => $taskcluster_root_url,
