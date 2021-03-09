@@ -104,19 +104,19 @@ function ARM64-Set-Options {
     Write-Log -message ('{0} :: begin - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
   }
   process {
-	Set-EnvironmentVariable -Name image_provisioner -Value $image_provisioner -Target global
-	Set-EnvironmentVariable -Name workerType -Value $workerType -Target global
+	Set-EnvironmentVariable -Name image_provisioner -Value $image_provisioner -Target machine
+	Set-EnvironmentVariable -Name workerType -Value $workerType -Target machine
 	$role = $workerType -replace '-',''
-	Set-EnvironmentVariable -Name role -Value $role -Target global
+	Set-EnvironmentVariable -Name role -Value $role -Target machine
 
-	Set-EnvironmentVariable -Name ronin_Organisation -Value $src_Organisation -Target global
-	Set-EnvironmentVariable -Name ronin_Repository -Value $src_Repository -Target global
-	Set-EnvironmentVariable -Name ronin_Revision -Value $src_Revision -Target global
+	Set-EnvironmentVariable -Name ronin_Organisation -Value $src_Organisation -Target machine
+	Set-EnvironmentVariable -Name ronin_Repository -Value $src_Repository -Target machine
+	Set-EnvironmentVariable -Name ronin_Revision -Value $src_Revision -Target machine
 
-	Set-EnvironmentVariable -Name inmutable -Value 'false' -Target global
-	Set-EnvironmentVariable -Name runtosuccess -Value 'true' -Target global
-	Set-EnvironmentVariable -Name ronin_last_run_exit -Value 0 -Target global
-	Set-EnvironmentVariable -Name bootstrap_stage -Value 'setup' -Target global
+	Set-EnvironmentVariable -Name inmutable -Value 'false' -Target machine
+	Set-EnvironmentVariable -Name runtosuccess -Value 'true' -Target machine
+	Set-EnvironmentVariable -Name ronin_last_run_exit -Value 0 -Target machine
+	Set-EnvironmentVariable -Name bootstrap_stage -Value 'setup' -Target machine
   }
   end {
     Write-Log -message ('{0} :: end - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
@@ -143,7 +143,7 @@ Function ARM64-Clone-Ronin {
       $git_exit = $LastExitCode
       if ($git_exit -eq 0) {
         $git_hash = (git rev-parse --verify HEAD)
-		Set-EnvironmentVariable -Name ronin_hash -Value git_hash -Target global
+		Set-EnvironmentVariable -Name ronin_hash -Value git_hash -Target machine
         Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name githash -type  string -value $git_hash
         Write-Log -message  ('{0} :: Cloning from https://github.com/{1}/{2}. Branch: {3}.' -f $($MyInvocation.MyCommand.Name), ($sourceOrg), ($sourceRepo), ($sourceRev)) -severity 'DEBUG'
       } else {
@@ -232,7 +232,7 @@ function Bootstrap-Puppet {
       $git_exit = $LastExitCode
       if ($git_exit -eq 0) {
         $git_hash = (git rev-parse --verify HEAD)
-		Set-EnvironmentVariable -Name ronin_hash -Value git_hash -Target global
+		Set-EnvironmentVariable -Name ronin_hash -Value git_hash -Target machine
         Write-Log -message  ('{0} :: Checking/pulling updates from https://github.com/{1}/{2}. Branch: {3}.' -f $($MyInvocation.MyCommand.Name), ($sourceOrg), ($sourceRepo), ($sourceRev)) -severity 'DEBUG'
       } else {
         Write-Log -message  ('{0} :: Git pull failed! https://github.com/{1}/{2}. Branch: {3}.' -f $($MyInvocation.MyCommand.Name), ($sourceOrg), ($sourceRepo), ($sourceRev)) -severity 'DEBUG'
@@ -245,7 +245,7 @@ function Bootstrap-Puppet {
         Move-item -Path $env:TEMP\vault.yaml -Destination $ronin_repo\data\secrets\vault.yaml
       }
     }
-    Set-EnvironmentVariable -Name bootstrap_stage -Value 'inprogress' -Target global
+    Set-EnvironmentVariable -Name bootstrap_stage -Value 'inprogress' -Target machine
 
     # Setting Env variabes for PuppetFile install and Puppet run
     # The ssl variables are needed for R10k
@@ -272,10 +272,10 @@ function Bootstrap-Puppet {
       if (($puppet_exit -ne 0) -and ($puppet_exit -ne 2)) {
         if (($last_exit -eq 0) -or ($puppet_exit -eq 2)) {
           Write-Log -message  ('{0} :: Puppet apply failed.  ' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target global
+		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
           shutdown ('-r', '-t', '0', '-c', 'Reboot; Puppet apply failed', '-f', '-d', '4:5')
         } elseif (($last_exit -ne 0) -or ($puppet_exit -ne 2)) {
-		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target global
+		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
           ##########if ( $restorable -like "yes") {
             ########if ( $restore_needed -like "false") {
                 #########Set-ItemProperty -Path "$ronnin_key" -name  restore_needed -value "puppetize_failed"
@@ -289,12 +289,12 @@ function Bootstrap-Puppet {
         }
       } elseif  (($puppet_exit -match 0) -or ($puppet_exit -match 2)) {
         Write-Log -message  ('{0} :: Puppet apply successful' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-		Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target global
-	    Set-EnvironmentVariable -Name bootstrap_stage -Value 'complete' -Target global
+		Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
+	    Set-EnvironmentVariable -Name bootstrap_stage -Value 'complete' -Target machine
         shutdown @('-r', '-t', '0', '-c', 'Reboot; Bootstrap complete', '-f', '-d', '4:5')
       } else {
         Write-Log -message  ('{0} :: Unable to detrimine state post Puppet apply' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-	    Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target global
+	    Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
         Start-sleep -s 600
         shutdown @('-r', '-t', '0', '-c', 'Reboot; Unveriable state', '-f', '-d', '4:5')
       }
