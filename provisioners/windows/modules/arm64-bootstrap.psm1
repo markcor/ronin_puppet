@@ -173,7 +173,7 @@ Function ARM64-Ronin-PreRun {
     [string] $role = $env:role,
     [string] $sourceOrg = $env:ronin_Organisation,
     [string] $sourceRepo = $env:ronin_Repository,
-    [string] $sourceRev = $env:ronin_Revision,
+    [string] $sourceRev = $env:ronin_Revision
     #############[string] $winlogon = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon"
 
   )
@@ -245,7 +245,7 @@ function Bootstrap-Puppet {
         Move-item -Path $env:TEMP\vault.yaml -Destination $ronin_repo\data\secrets\vault.yaml
       }
     }
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Mozilla\ronin_puppet" -Name 'bootstrap_stage' -Value 'inprogress'
+    Set-EnvironmentVariable -Name bootstrap_stage -Value 'inprogress' -Target global
 
     # Setting Env variabes for PuppetFile install and Puppet run
     # The ssl variables are needed for R10k
