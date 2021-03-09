@@ -109,19 +109,19 @@ If($stage -eq $null) {
     Setup-Logging
     InstallRoninModule -moduleName common-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
     InstallRoninModule -moduleName arm64-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
-    Bootstrap-schtasks -workerType $workerType -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision -image_provisioner $image_provisioner
+    write-host Bootstrap-schtasks -workerType $workerType -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision -image_provisioner $image_provisioner
     ARM64-Set-Options -workerType $workerType -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision -image_provisioner $image_provisioner
     ARM64-Install-Prerequ
-    shutdown @('-r', '-t', '0', '-c', 'Reboot; Prerequisites in place, logging setup, and env:variables are set', '-f', '-d', '4:5')
+    write-host shutdown @('-r', '-t', '0', '-c', 'Reboot; Prerequisites in place, logging setup, and env:variables are set', '-f', '-d', '4:5')
 }
 If (($stage -eq 'setup') -or ($stage -eq 'inprogress')){
     InstallRoninModule -moduleName common-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
     InstallRoninModule -moduleName arm64-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
-    Ronin-PreRun
-    Bootstrap-Puppet
+    write-host Ronin-PreRun
+    write-host Bootstrap-Puppet
 }
 If ($stage -eq 'complete') {
     InstallRoninModule -moduleName common-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
     InstallRoninModule -moduleName arm64-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
-    Start-Restore
+    write-host Start-Restore
 }
