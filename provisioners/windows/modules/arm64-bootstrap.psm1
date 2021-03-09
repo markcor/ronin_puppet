@@ -282,7 +282,7 @@ function Bootstrap-Puppet {
             #########} else {
                 ##########Start-Restore
             ##########}
-          }
+          #}
           Write-Log -message  ('{0} :: Puppet apply failed multiple times. Waiting 5 minutes beofre Reboot' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
           sleep 300
           shutdown @('-r', '-t', '0', '-c', 'Reboot; Puppet apply failed', '-f', '-d', '4:5')
