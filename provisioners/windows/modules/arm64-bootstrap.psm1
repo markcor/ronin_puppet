@@ -57,7 +57,7 @@ function ARM64-Install-Prerequ {
 
     New-Item -path $work_dir -ItemType "directory"
     Set-location -path $work_dir
-    Invoke-WebRequest -Uri  $ext_src/BootStrap.zip  -UseBasicParsing -OutFile $work_dir\BootStrap.zip
+    Invoke-WebRequest -Uri  $ext_src/ARM64BootStrap.zip  -UseBasicParsing -OutFile $work_dir\BootStrap.zip
     Expand-Archive -path $work_dir\BootStrap.zip -DestinationPath $env:systemdrive\
     Set-location -path $local_dir
     remove-item $work_dir   -Recurse  -force
