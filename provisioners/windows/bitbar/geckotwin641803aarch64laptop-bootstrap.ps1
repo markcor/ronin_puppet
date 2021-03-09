@@ -103,7 +103,7 @@ $src_Revision = 'arm64'
 $image_provisioner = 'bitbar'
 $max_boots = 200
 
-$stage = env:bootstrap-stage
+$stage = $env:bootstrap-stage
 
 If(!(test-path $stage)) {
     Setup-Logging
