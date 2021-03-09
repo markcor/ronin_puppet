@@ -105,7 +105,7 @@ $max_boots = 200
 
 $stage = $env:bootstrap_stage
 
-If(!(test-path $stage)) {
+If($stage -eq $null) {
     Setup-Logging
     InstallRoninModule -moduleName common-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
     InstallRoninModule -moduleName arm64-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
