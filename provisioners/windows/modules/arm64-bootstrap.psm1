@@ -55,6 +55,9 @@ function ARM64-Install-Prerequ {
   }
   process {
 
+    write-host look here!
+    write-host Invoke-WebRequest -Uri  $ext_src/ARM64BootStrap.zip  -UseBasicParsing -OutFile $work_dir\BootStrap.zip
+
     New-Item -path $work_dir -ItemType "directory"
     Set-location -path $work_dir
     Invoke-WebRequest -Uri  $ext_src/ARM64BootStrap.zip  -UseBasicParsing -OutFile $work_dir\BootStrap.zip
