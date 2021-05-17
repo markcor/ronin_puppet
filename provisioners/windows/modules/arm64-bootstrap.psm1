@@ -45,7 +45,7 @@ function Write-Log {
 function ARM64-Install-Prerequ {
   param (
     [string] $ext_src = "https://ronin-puppet-package-repo.s3-us-west-2.amazonaws.com/Windows/prerequisites",
-    [string] $local_dir = "$env:systemdrive\BootStrap",
+    [string] $local_dir = "$env:systemdrive\BootStrap\ARM64Bootstrap",
     [string] $work_dir = "$env:systemdrive\scratch",
     [string] $git = "Git-2.18.0-86-bit.exe",
     [string] $puppet = "puppet-agent-6.0.0-x86.msi"
