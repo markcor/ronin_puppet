@@ -62,9 +62,9 @@ function ARM64-Install-Prerequ {
     New-Item -path $env:systemdrive\scratch -ItemType "directory"
     Set-location -path $work_dir
     Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
-    Expand-Archive -path $work_dir\BootStrap.zip -DestinationPath $env:systemdrive\
+    Expand-Archive -path $work_dir\BootStrap.zip -DestinationPath $local_dir
     Set-location -path $local_dir
-    remove-item $work_dir   -Recurse  -force
+    #remove-item $work_dir   -Recurse  -force
 
     Start-Process $local_dir\$git /verysilent -wait
     Write-Log -message  ('{0} :: Git installed " {1}' -f $($MyInvocation.MyCommand.Name), ("$git")) -severity 'DEBUG'
