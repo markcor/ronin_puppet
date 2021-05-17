@@ -56,8 +56,8 @@ function ARM64-Install-Prerequ {
   process {
 
     write-host look here!
-    write-host Invoke-WebRequest  $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
-    write-host
+    write-host Invoke-WebRequest $ext_src/ARM64BootStrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
+    write-host New-Item -path $env:systemdrive\scratch -ItemType "directory"
 
     New-Item -path $env:systemdrive\scratch -ItemType "directory"
     Set-location -path $work_dir
