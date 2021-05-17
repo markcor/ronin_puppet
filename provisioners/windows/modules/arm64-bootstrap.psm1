@@ -44,7 +44,7 @@ function Write-Log {
 }
 function ARM64-Install-Prerequ {
   param (
-    [string] $ext_src = "https://s3-us-west-2.amazonaws.com/ronin-puppet-package-repo/Windows/prerequisites",
+    [string] $ext_src = "s3://ronin-puppet-package-repo/Windows/prerequisites/ARM64Bootstrap.zip",
     [string] $local_dir = "$env:systemdrive\BootStrap",
     [string] $work_dir = "$env:systemdrive\scratch",
     [string] $git = "Git-2.18.0-86-bit.exe",
@@ -56,12 +56,12 @@ function ARM64-Install-Prerequ {
   process {
 
     write-host look here!
-    write-host Invoke-WebRequest $ext_src/ARM64BootStrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
+    write-host Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
     write-host New-Item -path $env:systemdrive\scratch -ItemType "directory"
 
     New-Item -path $env:systemdrive\scratch -ItemType "directory"
     Set-location -path $work_dir
-    Invoke-WebRequest $ext_src/ARM64BootStrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
+    Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
     Expand-Archive -path $work_dir\BootStrap.zip -DestinationPath $env:systemdrive\
     Set-location -path $local_dir
     remove-item $work_dir   -Recurse  -force
