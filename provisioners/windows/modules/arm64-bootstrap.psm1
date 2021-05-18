@@ -186,7 +186,7 @@ Function ARM64-Ronin-PreRun {
   }
   process {
 
-    Clone-Ronin
+    ARM64-Clone-Ronin
 
     if (!(Test-path $nodes_def)) {
       Copy-item -path $nodes_def_src -destination $nodes_def -force
