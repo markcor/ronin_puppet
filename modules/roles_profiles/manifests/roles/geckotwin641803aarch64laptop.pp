@@ -21,5 +21,4 @@ class roles_profiles::roles::geckotwin641803aarch64laptop {
     include roles_profiles::profiles::mozilla_build
     include roles_profiles::profiles::mozilla_maintenance_service
     # include roles_profiles::profiles::windows_custom_config_generic_worker
-    include roles_profiles::profiles::microsoft_tools
 }
