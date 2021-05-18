@@ -277,7 +277,8 @@ function ARM64-Bootstrap-Puppet {
         if (($last_exit -eq 0) -or ($puppet_exit -eq 2)) {
           Write-Log -message  ('{0} :: Puppet apply failed.  ' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
 		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
-          shutdown ('-r', '-t', '0', '-c', 'Reboot; Puppet apply failed', '-f', '-d', '4:5')
+          write-host shutdown ('-r', '-t', '0', '-c', 'Reboot; Puppet apply failed', '-f', '-d', '4:5')
+          exit
         } elseif (($last_exit -ne 0) -or ($puppet_exit -ne 2)) {
 		  Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
           ##########if ( $restorable -like "yes") {
