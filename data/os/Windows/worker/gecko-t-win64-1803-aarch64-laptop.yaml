@@ -18,7 +18,7 @@ win-worker:
 
   # Mozilla-build
   mozilla_build:
-    version: '2.2'
+    version: '2.2.0'
     hg_version: '4.7.1'
     py3_pip_version: '19.2.1'
     py3_zstandard_version: '0.11.1'
