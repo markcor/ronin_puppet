@@ -233,6 +233,7 @@ function ARM64-Bootstrap-Puppet {
     }
     If ($stage -eq "inprogress") {
       git pull https://github.com/$sourceOrg/$sourceRepo $sourceRev
+      write-host git pull https://github.com/$sourceOrg/$sourceRepo $sourceRev
       $git_exit = $LastExitCode
       if ($git_exit -eq 0) {
         $git_hash = (git rev-parse --verify HEAD)
