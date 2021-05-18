@@ -57,8 +57,10 @@ if (Test-Path $taskcluster_proxy_file) {
 }
 write-host "custom_win_taskcluster_proxy_version=$proxy_version"
 
-# workerType is set during proviosning (This may only be for hardware)
-if (test-path "HKLM:\SOFTWARE\Mozilla\ronin_puppet") {
+# workerType
+
+if ($env:PROCESSOR_ARCHITEW6432 -eq "ARM64") {
+    write-host "custom_win_gw_workerType=$env:workerType"
+} else {
     $gw_workertype = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").workerType
-    write-host "custom_win_gw_workerType=$gw_workertype"
 }
