@@ -17,8 +17,8 @@ class roles_profiles::profiles::mozilla_build {
             # As worker-runner support is expanded this conditional will expand as well
             # Once worker-runner is fully implemented then this support can be removed
             $tooltool_tok = $facts['custom_win_location'] ? {
-                'azure' => undef,
-                default => lookup('tooltool_tok')
+                datacenter => lookup('tooltool_tok'),
+                default => undef
             }
 
             class { 'win_mozilla_build':
