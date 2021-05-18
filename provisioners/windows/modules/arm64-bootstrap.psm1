@@ -216,7 +216,7 @@ function ARM64-Bootstrap-Puppet {
     [string] $logdir = "$env:systemdrive\logs",
     [string] $datetime = (get-date -format yyyyMMdd-HHmm),
     [string] $flagfile = "$env:programdata\PuppetLabs\ronin\semaphore\task-claim-state.valid",
-    [string] $sourceOrg = $env:ronin_last_run_exit,
+    [string] $sourceOrg = $env:ronin_Organisation,
     [string] $sourceRepo = $env:ronin_Repository,
     [string] $sourceRev = $env:ronin_Revision,
     ###################[string] $restore_needed = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").restore_needed,
