@@ -16,7 +16,6 @@ class roles_profiles::roles::geckotwin641803aarch64laptop {
     # Adminstration
     include roles_profiles::profiles::logging
     include roles_profiles::profiles::common_tools
-    include roles_profiles::profiles::windows_datacenter_administrator
 
     # Worker
     include roles_profiles::profiles::mozilla_build
