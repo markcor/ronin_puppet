@@ -39,9 +39,17 @@ class roles_profiles::profiles::disable_services {
             include win_disable_services::disable_wsearch
             include win_disable_services::disable_puppet
             include win_disable_services::disable_windows_update
-            if $facts['os']['release']['full'] == '10' {
+            # $facts['os']['release']['full'] is not avaialable on ARM54 workers
+            # and will cause errors if evaluate
+            if $facts['os']['hardware'] != 'i686' {
+                if $facts['os']['release']['full'] == '10' {
+                    include win_disable_services::disable_onedrive
+                }
+            } else {
+                # for now assume ARM64 workers are Win 10
                 include win_disable_services::disable_onedrive
             }
+
             if $facts['custom_win_release_id'] == '1903' or '2004'{
                 include win_disable_services::disable_windows_defender_schtask
             } else {
