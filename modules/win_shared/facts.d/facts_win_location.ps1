@@ -26,5 +26,8 @@ if ($location -eq "datacenter") {
 	}
 }
 
-Write-host "custom_win_location=$location"
-Write-host "custom_win_mozspace=$mozspace"
+#Write-host "custom_win_location=$location"
+#Write-host "custom_win_mozspace=$mozspace"
+###### TESTING ONLY!!!!!!!!!! REMOVE BEFORE MERGE!!!!!!!!!!!!!
+Write-host "custom_win_location=bitbar"
+Write-host "custom_win_mozspace=bitbar"
