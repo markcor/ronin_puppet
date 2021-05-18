@@ -129,9 +129,9 @@ function ARM64-Set-Options {
 
 Function ARM64-Clone-Ronin {
   param (
-    [string] $sourceOrg = $env:ronin_Organisation,
-    [string] $sourceRepo = $env:ronin_Repository,
-    [string] $sourceRev = $env:ronin_Revision,
+    [string] $sourceOrg = "$env:ronin_Organisation",
+    [string] $sourceRepo = "$env:ronin_Repository",
+    [string] $sourceRev = "$env:ronin_Revision",
     [string] $ronin_repo = "$env:systemdrive\ronin"
   )
   begin {
@@ -169,15 +169,15 @@ Function ARM64-Ronin-PreRun {
   param (
     [string] $nodes_def_src  = "$env:systemdrive\BootStrap\nodes.pp",
     [string] $nodes_def = "$env:systemdrive\ronin\manifests\nodes.pp",
-    [string] $bootstrap_dir = "$env:systemdrive\BootStrap\",
-    [string] $secret_src = "$env:systemdrive\BootStrap\secrets\",
-    [string] $secrets = "$env:systemdrive\ronin\data\secrets\",
+    [string] $bootstrap_dir = "$env:systemdrive\BootStrap",
+    [string] $secret_src = "$env:systemdrive\BootStrap\secrets",
+    [string] $secrets = "$env:systemdrive\ronin\data\secrets",
     #############[String] $sentry_reg = "HKLM:SYSTEM\CurrentControlSet\Services",
-    [string] $workerType = $env:workerType,
-    [string] $role = $env:role,
-    [string] $sourceOrg = $env:ronin_Organisation,
-    [string] $sourceRepo = $env:ronin_Repository,
-    [string] $sourceRev = $env:ronin_Revision
+    [string] $workerType = "$env:workerType",
+    [string] $role = "$env:role",
+    [string] $sourceOrg = "$env:ronin_Organisation",
+    [string] $sourceRepo = "$env:ronin_Repository",
+    [string] $sourceRev = "$env:ronin_Revision"
     #############[string] $winlogon = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon"
 
   )
