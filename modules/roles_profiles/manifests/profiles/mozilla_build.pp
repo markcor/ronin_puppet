@@ -23,6 +23,11 @@ class roles_profiles::profiles::mozilla_build {
             $external_source = lookup('windows.s3.ext_pkg_src')
             $install_path    = "${facts['custom_win_systemdrive']}\\mozilla-build"
 
+            $program_files  = $facts['os']['architecture'] ? {
+                'x64' => $facts['custom_win_programfiles'],
+                'x86' => $facts['custom_win_programfilesx86'],
+            }
+
             class { 'win_mozilla_build':
                 current_mozbld_ver        => $facts['custom_win_mozbld_vesion'],
                 needed_mozbld_ver         => lookup('win-worker.mozilla_build.version'),
@@ -35,7 +40,7 @@ class roles_profiles::profiles::mozilla_build {
                 install_path              => $install_path,
                 system_drive              => $facts['custom_win_systemdrive'],
                 cache_drive               => $cache_drive,
-                program_files             => $facts['custom_win_programfiles'],
+                program_files             => $program_files,
                 programdata               => $facts['custom_win_programdata'],
                 psutil_ver                => lookup('win-worker.mozilla_build.psutil_version'),
                 tempdir                   => $facts['custom_win_temp_dir'],
