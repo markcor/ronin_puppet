@@ -30,12 +30,15 @@ $win_admin_sid = $administrator_info.sid
 
 # Network profile
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1563287
-$NetCategory =  Get-NetConnectionProfile | select NetworkCategory
+# This Get-NetConnectionProfile fails on ARM64 not worth the time to fix
+if ($env:PROCESSOR_ARCHITEW6432 -ne "ARM64") {
+    $NetCategory =  Get-NetConnectionProfile | select NetworkCategory
 
-if ($NetCategory -like '*private*') {
-	$NetworkCategory = "private"
-} else {
-	$NetworkCategory = "other"
+    if ($NetCategory -like '*private*') {
+	    $NetworkCategory = "private"
+    } else {
+	    $NetworkCategory = "other"
+    }
 }
 
 # Firewall status

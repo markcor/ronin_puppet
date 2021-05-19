@@ -20,6 +20,8 @@ class roles_profiles::profiles::mozilla_build {
                 datacenter => lookup('tooltool_tok'),
                 default => undef
             }
+            $external_source = lookup('windows.s3.ext_pkg_src')
+            $install_path    = "${facts['custom_win_systemdrive']}\\mozilla-build"
 
             class { 'win_mozilla_build':
                 current_mozbld_ver        => $facts['custom_win_mozbld_vesion'],
@@ -30,7 +32,7 @@ class roles_profiles::profiles::mozilla_build {
                 needed_py3_pip_ver        => lookup('win-worker.mozilla_build.py3_pip_version'),
                 current_py3_zstandard_ver => $facts['custom_win_py3_zstandard_version'],
                 needed_py3_zstandard_ver  => lookup('win-worker.mozilla_build.py3_zstandard_version'),
-                install_path              => "${facts['custom_win_systemdrive']}\\mozilla-build",
+                install_path              => $install_path,
                 system_drive              => $facts['custom_win_systemdrive'],
                 cache_drive               => $cache_drive,
                 program_files             => $facts['custom_win_programfiles'],
@@ -38,9 +40,19 @@ class roles_profiles::profiles::mozilla_build {
                 psutil_ver                => lookup('win-worker.mozilla_build.psutil_version'),
                 tempdir                   => $facts['custom_win_temp_dir'],
                 system32                  => $facts['custom_win_system32'],
-                external_source           => lookup('windows.s3.ext_pkg_src'),
+                external_source           => $external_source,
                 builds_dir                => "${facts['custom_win_systemdrive']}\\builds",
                 tooltool_tok              => $tooltool_tok,
+            }
+
+            # For ARM64 only older version of Mozilla build will work
+            # See worker data for for which version
+
+            if $facts['os']['hardware'] != 'i686' {
+                class { 'win_mozilla_build::custom_win32_python_3_7_2':
+                    source       => "${external_source}/ARM64/python_3_7_3_win32",
+                    install_path => "${install_path}\\python3",
+                }
             }
             # Bug List
             # https://bugzilla.mozilla.org/show_bug.cgi?id=1524440
