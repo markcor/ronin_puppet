@@ -27,7 +27,7 @@ class win_mozilla_build (
     if $::operatingsystem == 'Windows' {
         include win_mozilla_build::install
         include win_mozilla_build::hg_install
-        #include win_mozilla_build::hg_files
+        include win_mozilla_build::hg_files
         #include win_mozilla_build::install_py3_certi
         #include win_mozilla_build::tooltool
         #include win_mozilla_build::modifications

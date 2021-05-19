@@ -97,4 +97,5 @@ class win_mozilla_build::custom_win32_python_3_7_2 (
         install_path => $install_path,
         pkg          =>  'ucrt',
     }
+
 }
