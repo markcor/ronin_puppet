@@ -7,17 +7,14 @@ class win_mozilla_build::custom_win32_python_3_7_2 (
     String $install_path
 ) {
 
-$pkgdir = $facts['custom_win_temp_dir']
-
-
-
-    file { "${$pkgdir}\\core.msi" :
-        source => "${source}/core.msi",
-    }
-    package { 'python_3_7_3_win32_core' :
-        ensure          => installed,
-        source          => "${pkgdir}\\core.msi",
-        install_options => ['InstallAllUsers=1', "TargetDir=${install_path}\\python3" ],
-        require         => File["${pkgdir}\\core.msi"],
+  win_mozilla_build::win32_python_3_7_2_component { 'python_3_7_3_win32_core' :
+    source       => $source,
+    install_path =>  $install_path,
+    pkg          =>  'core',
+  }
+    win_mozilla_build::win32_python_3_7_2_component { 'python_3_7_3_win32_core_d' :
+        source       => $source,
+        install_path => $install_path,
+        pkg          =>  'core_d',
     }
 }
