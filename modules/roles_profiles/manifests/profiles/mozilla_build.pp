@@ -48,7 +48,7 @@ class roles_profiles::profiles::mozilla_build {
             # For ARM64 only older version of Mozilla build will work
             # See worker data for for which version
 
-            if $facts['os']['hardware'] != 'i686' {
+            if $facts['os']['hardware'] == 'i686' {
                 class { 'win_mozilla_build::custom_win32_python_3_7_2':
                     source       => "${external_source}/ARM64/python_3_7_3_win32",
                     install_path => "${install_path}\\python3",
