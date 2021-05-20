@@ -121,11 +121,9 @@ If (($stage -eq 'setup') -or ($stage -eq 'inprogress')){
     ARM64-Ronin-PreRun
     }
     ARM64-Bootstrap-Puppet
-    write-host Ronin-PreRun
-    write-host Bootstrap-Puppet
 }
 If ($stage -eq 'complete') {
     InstallRoninModule -moduleName common-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
     InstallRoninModule -moduleName arm64-bootstrap -src_Organisation $src_Organisation -src_Repository $src_Repository -src_Revision $src_Revision
-    write-host Start-Restore
+    #Start-Restore
 }
