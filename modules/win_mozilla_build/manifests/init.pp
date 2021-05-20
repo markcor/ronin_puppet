@@ -32,7 +32,7 @@ class win_mozilla_build (
         include win_mozilla_build::tooltool
         include win_mozilla_build::modifications
         #include win_mozilla_build::set_registry_priority
-        #include win_mozilla_build::virtualenv_support
+        include win_mozilla_build::virtualenv_support
         #include win_mozilla_build::pip
         #include win_mozilla_build::grant_symlnk_access
         #include win_mozilla_build::zstandard
