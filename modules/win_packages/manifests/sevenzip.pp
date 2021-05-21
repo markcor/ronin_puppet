@@ -4,9 +4,15 @@
 
 class win_packages::sevenzip {
 
+
+    $pkg = $facts['os']['architecture'] ? {
+        'x64'   => '7z1806-x64.msi',
+        default => '7z1900-x86.msi',
+    }
+
     if $::operatingsystem == 'Windows' {
         win_packages::win_msi_pkg  { '7-Zip 18.06 (x64 edition)':
-            pkg             => '7z1806-x64.msi',
+            pkg             => $pkg,
             install_options => ['/quiet'],
         }
     } else {
