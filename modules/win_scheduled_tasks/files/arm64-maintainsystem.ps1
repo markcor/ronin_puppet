@@ -89,53 +89,6 @@ function Remove-OldTaskDirectories {
     Write-Log -message ('{0} :: end - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
   }
 }
-function Check-RoninNodeOptions {
-  param (
-    [string] $inmutable =  (Get-ItemProperty -path "HKLM:\SOFTWARE\Mozilla\ronin_puppet").inmutable,
-    [string] $flagfile = "$env:programdata\PuppetLabs\ronin\semaphore\task-claim-state.valid"
-  )
-  begin {
-    Write-Log -message ('{0} :: begin - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
-  }
-  process {
-    Write-Host $inmutable
-    if ($inmutable -eq 'true') {
-      Write-Log -message  ('{0} :: Node is set to be inmutable' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-      Remove-Item -path $lock -ErrorAction SilentlyContinue
-      write-host New-item -path $flagfile
-      Exit-PSSession
-    }
-  }
-  end {
-    Write-Log -message ('{0} :: end - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
-  }
-}
-function Check-RoninLock {
-  param (
-    [string] $lock = "$env:programdata\PuppetLabs\ronin\semaphore\ronin_run.lock"
-  )
-  begin {
-    Write-Log -message ('{0} :: begin - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
-  }
-  process {
-    if (Test-Path $lock) {
-      ruby_process = Get-Process ruby -ErrorAction SilentlyContinue
-      if (ruby_process -eq $null) {
-        Remove-Item $lock
-        write-host shutdown @('-r', '-t', '0', '-c', 'Reboot; Lock file is present but Puppet is not running', '-f', '-d', '4:5')
-      } elseif (ruby_process -neq $null) {
-        Write-Log -message  ('{0} :: An instance of Puppet is currently running.' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-        exit
-      } else {
-        New-Item -Path $lock -ItemType file -Force
-        Write-Log -message  ('{0} :: $lock created.' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-      }
-    }
-  }
-  end {
-    Write-Log -message ('{0} :: end - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
-  }
-}
 
 Function UpdateRonin {
   param (
@@ -191,8 +144,6 @@ function Puppet-Run {
   }
   process {
 
-    Check-RoninNodeOptions
-    Check-RoninLock
     UpdateRonin
 
     # Setting Env variabes for PuppetFile install and Puppet run
