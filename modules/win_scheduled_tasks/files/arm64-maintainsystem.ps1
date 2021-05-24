@@ -107,7 +107,7 @@ Function UpdateRonin {
     $git_exit = $LastExitCode
     if ($git_exit -eq 0) {
       $git_hash = (git rev-parse --verify HEAD)
-      Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name githash -type  string -value $git_hash
+      Set-EnvironmentVariable -Name ronin_hash -Value git_hash -Target machine
       Write-Log -message  ('{0} :: Checking/pulling updates from https://github.com/{1}/{2}. Branch: {3}.' -f $($MyInvocation.MyCommand.Name), ($sourceOrg), ($sourceRepo), ($sourceRev)) -severity 'DEBUG'
     } else {
       # Fall back to clone if pull fails
@@ -130,7 +130,7 @@ function Puppet-Run {
   param (
     [int] $exit,
     [string] $lock = "$env:programdata\PuppetLabs\ronin\semaphore\ronin_run.lock",
-    [int] $last_exit = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").last_run_exit,
+    [int] $last_exit = $env:ronin_last_run_exit,
     [string] $run_to_success = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").runtosuccess,
     [string] $nodes_def = "$env:systemdrive\ronin\manifests\nodes\odes.pp",
     [string] $logdir = "$env:systemdrive\logs",
@@ -170,7 +170,7 @@ function Puppet-Run {
     }
 
     Write-Log -message  ('{0} :: Installing Puppetfile .' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'i
-    R10k puppetfile install --moduledir=r10k_modules
+    # R10k puppetfile install --moduledir=r10k_modules
     # Needs to be removed from path or a wrong puppet file will be used
     $env:path = ($env:path.Split(';') | Where-Object { $_ -ne "$env:programfiles\Puppet Labs\Puppet\puppet\bin" }) -join ';'
     If(!(test-path $fail_dir))  {
