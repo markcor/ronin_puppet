@@ -276,7 +276,7 @@ $reboot_count_exists = Get-ItemProperty HKLM:\SOFTWARE\Mozilla\ronin_puppet rebo
   $new_count = $previous_boots + 1
   Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name reboot_count -value $new_count -force
 }
-If (($env:bootstrap_stage -eq 'complete') or ($bootstrap_stage -eq 'complete')) {
+If (($env:bootstrap_stage -eq 'complete') -or ($bootstrap_stage -eq 'complete')) {
 
   Run-MaintainSystem
   Puppet-Run
