@@ -7,12 +7,12 @@ class win_mozilla_build::custom_win32_python_3_7_2 (
     String $install_path
 ) {
 
-  win_mozilla_build::win32_python_3_7_2_component { 'Python 3.7.3 Development Libraries (32-bit)' :
+  win_mozilla_build::win32_python_3_7_2_component { 'Python 3.7.3 Core Interpreter (32-bit)' :
     source       => $source,
     install_path =>  $install_path,
     pkg          =>  'core',
   }
-    win_mozilla_build::win32_python_3_7_2_component { 'Python 3.7.3 Development Libraries (32-bit debug)' :
+    win_mozilla_build::win32_python_3_7_2_component { 'Python 3.7.3 Core Interpreter (32-bit debug)' :
         source       => $source,
         install_path => $install_path,
         pkg          =>  'core_d',
