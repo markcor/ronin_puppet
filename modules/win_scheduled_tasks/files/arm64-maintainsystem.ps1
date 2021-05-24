@@ -129,7 +129,6 @@ Function UpdateRonin {
 function Puppet-Run {
   param (
     [int] $exit,
-    [string] $lock = "$env:programdata\PuppetLabs\ronin\semaphore\ronin_run.lock",
     [int] $last_exit = $env:ronin_last_run_exit,
     [string] $run_to_success = "true",
     [string] $nodes_def = "$env:systemdrive\ronin\manifests\nodes\odes.pp",
@@ -169,7 +168,7 @@ function Puppet-Run {
         $hiera = "hiera.yaml"
     }
 
-    Write-Log -message  ('{0} :: Installing Puppetfile .' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'i
+    # Write-Log -message  ('{0} :: Installing Puppetfile .' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'i
     # R10k puppetfile install --moduledir=r10k_modules
     # Needs to be removed from path or a wrong puppet file will be used
     $env:path = ($env:path.Split(';') | Where-Object { $_ -ne "$env:programfiles\Puppet Labs\Puppet\puppet\bin" }) -join ';'
@@ -185,15 +184,13 @@ function Puppet-Run {
       if (($puppet_exit -ne 0) -and ($puppet_exit -ne 2)) {
         if($last_exit -eq 0) {
           Write-Log -message  ('{0} :: Puppet apply failed.' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-          Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name last_exit -type  dword -value $puppet_exit
-          Remove-Item $lock -ErrorAction SilentlyContinue
+          Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
           # If the Puppet run fails send logs to papertrail
           # Nxlog watches $fail_dir for files names *-puppetrun.log
           Move-Item $logdir\$log_file -Destination $fail_dir
           shutdown @('-r', '-t', '0', '-c', 'Reboot; Puppet apply failed', '-f', '-d', '4:5')
         } elseif ($last_exit -ne 0){
-          Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name last_exit -type  dword -value $puppet_exit
-          Remove-Item $lock
+          Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
           Move-Item $logdir\$log_file -Destination $fail_dir
           Write-Log -message  ('{0} :: Puppet apply failed. Waiting 10 minutes beofre Reboot' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
           sleep 600
@@ -201,14 +198,11 @@ function Puppet-Run {
         }
       } elseif (($puppet_exit -match 0) -or ($puppet_exit -match 2)) {
         Write-Log -message  ('{0} :: Puppet apply successful' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-        Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name last_exit -type  dword -value $puppet_exit
-        Remove-Item -path $lock
-        New-item -path $flagfile
+        Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
       } else {
         Write-Log -message  ('{0} :: Unable to detrimine state post Puppet apply' -f $($MyInvocation.MyCommand.Name)) -severity 'DEBUG'
-        Set-ItemProperty -Path HKLM:\SOFTWARE\Mozilla\ronin_puppet -name last_exit -type  dword -value $last_exit
+        Set-EnvironmentVariable -Name ronin_last_run_exit -Value $puppet_exit -Target machine
         Move-Item $logdir\$log_file -Destination $fail_dir
-        Remove-Item -path $lock
         shutdown @('-r', '-t', '600', '-c', 'Reboot; Unveriable state', '-f', '-d', '4:5')
       }
     }
