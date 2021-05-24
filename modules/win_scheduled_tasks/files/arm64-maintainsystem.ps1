@@ -131,7 +131,7 @@ function Puppet-Run {
     [int] $exit,
     [string] $lock = "$env:programdata\PuppetLabs\ronin\semaphore\ronin_run.lock",
     [int] $last_exit = $env:ronin_last_run_exit,
-    [string] $run_to_success = (Get-ItemProperty "HKLM:\SOFTWARE\Mozilla\ronin_puppet").runtosuccess,
+    [string] $run_to_success = "true",
     [string] $nodes_def = "$env:systemdrive\ronin\manifests\nodes\odes.pp",
     [string] $logdir = "$env:systemdrive\logs",
     [string] $fail_dir = "$env:systemdrive\fail_logs",
