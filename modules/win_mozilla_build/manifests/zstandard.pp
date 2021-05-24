@@ -5,9 +5,6 @@
 class win_mozilla_build::zstandard {
 
     require win_mozilla_build::pip
-  if $facts['os']['hardware'] == 'i686' {
-        require win_mozilla_build::custom_win32_python_3_7_3
-    }
 
     $needed_py3_zstandard_ver = $win_mozilla_build::needed_py3_zstandard_ver
     $mozbld = $win_mozilla_build::install_path
