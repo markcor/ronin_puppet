@@ -12,4 +12,9 @@ class win_mozilla_build::custom_win32_python_3_7_2 (
     install_path =>  $install_path,
     pkg          =>  'core',
   }
+    win_mozilla_build::win32_python_3_7_2_component { 'Python 3.7.3 Executables (32-bit)' :
+        source       => $source,
+        install_path => $install_path,
+        pkg          =>  'exe',
+    }
 }
