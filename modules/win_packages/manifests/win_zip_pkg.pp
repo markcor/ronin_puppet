@@ -15,6 +15,13 @@ define win_packages::win_zip_pkg (
     $srcloc      = lookup('windows.s3.ext_pkg_src')
     $seven_zip   = "\"${facts['custom_win_programfiles']}\\7-Zip\\7z.exe\""
     $source      = "\"${pkgdir}\\${pkg}\""
+    $program_files  = $facts['os']['architecture'] ? {
+        'x64'   => $facts['custom_win_programfiles'],
+        default => $facts['custom_win_programfilesx86'],
+    }
+    $seven_zip   = "\"${program_files}\\7-Zip\\7z.exe\""
+
+
 
     file { "${pkgdir}\\${pkg}":
         source => "${srcloc}/${pkg}",
