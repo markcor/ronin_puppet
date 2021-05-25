@@ -12,7 +12,9 @@ class win_mozilla_build::python_3_7_3_win32 {
         creates     => $python_exe,
         destination => $py3_dir,
     }
-    file { "${py3_dir}\\python3.exe":
-        source => $python_exe,
+    exec { 'copy_python3_exe':
+        command  => "Copy-Item ${python_exe} -Destination  ${py3_dir}\\python3.exe",
+        provider => powershell,
+        creates  => "${py3_dir}\\python3.exe",
     }
 }
