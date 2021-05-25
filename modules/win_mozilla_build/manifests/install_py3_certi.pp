@@ -5,6 +5,9 @@
 class win_mozilla_build::install_py3_certi {
 
     require win_mozilla_build::install
+    if $facts['os']['hardware'] == 'i686' {
+        require win_mozilla_build::python_3_7_3_win32
+    }
 
     $mozbld = $win_mozilla_build::install_path
 

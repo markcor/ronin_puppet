@@ -4,9 +4,15 @@
 
 class win_mozilla_build::python_3_7_3_win32 {
 
+    $py3_dir = "${facts['custom_win_systemdrive']}\\mozilla-build\\python3"
+    $python_exe = "${py3_dir}\\python.exe"
+
     win_packages::win_zip_pkg { 'python_3_7_3_win32':
         pkg         => 'python-3.7.3-embed-win32.zip',
-        creates     => "${facts['custom_win_systemdrive']}\\mozilla-build\\fake",
-        destination => "${facts['custom_win_systemdrive']}\\mozilla-build\\python3",
+        creates     => $python_exe,
+        destination => $py3_dir,
+    }
+    file { "${py3_dir}\\python3.exe":
+        source => $python_exe,
     }
 }

@@ -15,7 +15,7 @@ class win_mozilla_build::modifications {
 
     # may not be needed anywhere
     # for now only preventing it on
-    if $facts['os']['hardware'] == 'i686' {
+    if $facts['os']['hardware'] != 'i686' {
         file { "${mozbld}\\python3\\python.exe":
             ensure => absent,
             purge  => true,
