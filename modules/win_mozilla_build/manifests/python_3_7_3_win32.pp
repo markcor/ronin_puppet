@@ -17,4 +17,7 @@ class win_mozilla_build::python_3_7_3_win32 {
         provider => powershell,
         creates  => "${py3_dir}\\python3.exe",
     }
+    exec { 'install_py3_pip':
+        command => "${py3_dir}\\python3.exe get-pip.py"
+    }
 }
