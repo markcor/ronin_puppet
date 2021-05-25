@@ -13,7 +13,6 @@ define win_packages::win_zip_pkg (
 
     $pkgdir      = $facts['custom_win_temp_dir']
     $srcloc      = lookup('windows.s3.ext_pkg_src')
-    $seven_zip   = "\"${facts['custom_win_programfiles']}\\7-Zip\\7z.exe\""
     $source      = "\"${pkgdir}\\${pkg}\""
     $program_files  = $facts['os']['architecture'] ? {
         'x64'   => $facts['custom_win_programfiles'],
