@@ -12,10 +12,15 @@ class win_mozilla_build::modifications {
     file { $win_mozilla_build::builds_dir:
         ensure => directory,
     }
-    file { "${mozbld}\\python3\\python.exe":
-        ensure => absent,
-        purge  => true,
-        force  => true,
+
+    # may not be needed anywhere
+    # for now only preventing it on
+    if $facts['os']['hardware'] == 'i686' {
+        file { "${mozbld}\\python3\\python.exe":
+            ensure => absent,
+            purge  => true,
+            force  => true,
+        }
     }
     file { "${mozbld}\\python\\Scripts\\hg":
         ensure => absent,
