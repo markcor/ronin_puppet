@@ -96,7 +96,7 @@ function InstallRoninModule {
     Write-Log -message ('{0} :: end - {1:o}' -f $($MyInvocation.MyCommand.Name), (Get-Date).ToUniversalTime()) -severity 'DEBUG'
   }
 }
-$workerType = 'gecko-t-win64-1803-aarch64-laptop'
+$workerType = 'gecko-t-win-aarch64-laptop'
 $src_Organisation = 'markcor'
 $src_Repository = 'ronin_puppet'
 $src_Revision = 'yogas'
