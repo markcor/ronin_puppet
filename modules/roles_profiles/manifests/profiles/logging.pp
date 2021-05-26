@@ -42,6 +42,8 @@ class roles_profiles::profiles::logging (
                     fail("Log level ${log_level} is not supported")
                 }
                 $conf_file  = "${facts['custom_win_location']}_${log_level}_nxlog.conf"
+            } elsif ($facts['custom_win_location'] == 'bitbar') and ($facts['os']['hardware'] == 'i686') {
+                $conf_file = 'non_datacenter_verbose_nxlog.conf.epp'
             } else {
                 $conf_file = 'non_datacenter_nxlog.conf'
             }

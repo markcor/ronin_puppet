@@ -41,3 +41,8 @@ win-worker:
     # Applications
   nssm:
     version: '2.24'
+
+  # Logging
+  # Logging level options debug, verbose, or restricted.
+  log:
+    level: "verbose"
