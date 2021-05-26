@@ -15,7 +15,9 @@ class roles_profiles::profiles::microsoft_tools {
             # For now pulling from S3
 
             include win_packages::vc_redist_x86
-            include win_packages::vc_redist_x64
+            if $facts['os']['architecture'] == 'x64' {
+                include win_packages::vc_redist_x64
+            }
             include win_os_settings::powershell_profile
 
             class { 'win_packages::performance_tool_kit':
