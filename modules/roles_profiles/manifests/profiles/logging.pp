@@ -43,7 +43,7 @@ class roles_profiles::profiles::logging (
                 }
                 $conf_file  = "${facts['custom_win_location']}_${log_level}_nxlog.conf"
             } elsif ($facts['custom_win_location'] == 'bitbar') and ($facts['os']['hardware'] == 'i686') {
-                $conf_file = 'non_datacenter_verbose_nxlog.conf.epp'
+                $conf_file = 'non_datacenter_verbose_nxlog.conf'
             } else {
                 $conf_file = 'non_datacenter_nxlog.conf'
             }
