@@ -39,5 +39,5 @@ win-worker:
     local:  "%{facts.custom_win_roninprogramdata}\\mozprofilerprobe.mof"
 
     # Applications
-    vnc_msi:  "UltraVnc_1223_X64.msi"
-    vnc_name:  "UltraVnc"
+  nssm:
+    version: '2.24'
