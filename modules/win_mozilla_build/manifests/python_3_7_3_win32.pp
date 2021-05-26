@@ -24,6 +24,11 @@ class win_mozilla_build::python_3_7_3_win32 {
     win_packages::win_exe_pkg  { 'python-3.7.3':
         pkg                    => 'python-3.7.3.exe',
         install_options_string => "/quiet /repair InstallAllUsers=1 TargetDir=${py3_dir}",
-        creates                => "${py3_dir}\\python3.exe"
+        creates                => $python_exe,
+    }
+    exec { 'copy_python3_exe':
+        command  => "Copy-Item ${python_exe} -Destination  ${py3_dir}\\python3.exe",
+        provider => powershell,
+        creates  => "${py3_dir}\\python3.exe",
     }
 }
