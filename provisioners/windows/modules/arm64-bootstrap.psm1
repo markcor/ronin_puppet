@@ -168,13 +168,14 @@ Function ARM64-Clone-Ronin {
   }
 }
 
+# Expects "$env:systemdrive\secrets\vault.yaml" to be present
 Function ARM64-Ronin-PreRun {
   param (
     [string] $nodes_def_src  = "$env:systemdrive\BootStrap\ARM64bootstrap\nodes.pp",
     [string] $nodes_def = "$env:systemdrive\ronin\manifests\nodes.pp",
     [string] $bootstrap_dir = "$env:systemdrive\BootStrap\ARM64bootstrap",
-    [string] $secret_src = "$env:systemdrive\BootStrap\ARM64bootstrap\secrets",
-    [string] $secrets = "$env:systemdrive\ronin\data\secrets",
+    [string] $secret_src = "$env:systemdrive\secrets\vault.yaml",
+    [string] $secrets = "$env:systemdrive\ronin\data\secrets\vault.yaml",
     #############[String] $sentry_reg = "HKLM:SYSTEM\CurrentControlSet\Services",
     [string] $workerType = "$env:workerType",
     [string] $role = "$env:role",
