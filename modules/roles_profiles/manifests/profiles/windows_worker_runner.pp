@@ -39,6 +39,9 @@ class roles_profiles::profiles::windows_worker_runner {
             $implementation        = lookup('win-worker.taskcluster.worker_runner.implementation')
 
 
+            # standalone is specifically for testing
+            # static provider is for hardware
+            # default coovers all cloud providers
             case $provider {
                 'standalone': {
                     $taskcluster_root_url  = lookup('windows.taskcluster.root_url')

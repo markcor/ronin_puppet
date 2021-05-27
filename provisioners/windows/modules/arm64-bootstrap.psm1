@@ -42,6 +42,8 @@ function Write-Log {
     Write-Host  -object $message -ForegroundColor $fc
   }
 }
+# This requires function requires human interaction
+# if this is used for anything outside of bitbar it will need to be adjusted
 function ARM64-Install-Prerequ {
   param (
     [string] $ext_src = "https://ronin-puppet-package-repo.s3-us-west-2.amazonaws.com/Windows/prerequisites",
@@ -55,9 +57,10 @@ function ARM64-Install-Prerequ {
   }
   process {
 
-    write-host look here!
     write-host Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
     write-host New-Item -path $env:systemdrive\scratch -ItemType "directory"
+
+    Read-Host "Enusre c:\bootstrap\secrets\vault.yam is present, and then press eneter to continue"
 
     New-Item -path $env:systemdrive\scratch -ItemType "directory"
     Set-location -path $work_dir

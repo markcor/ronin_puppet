@@ -103,6 +103,7 @@ function Install-Prerequ {
 }
 # As seen with the ACER laptops at bitbar individual prerequ package downloads will fail
 # In this case use Install-ZipPrerequ
+# Only use this function for Bitbar. Needs Human interaction"
 function Install-ZipPrerequ {
   param (
     [string] $ext_src = "https://s3-us-west-2.amazonaws.com/ronin-puppet-package-repo/Windows/prerequisites",
