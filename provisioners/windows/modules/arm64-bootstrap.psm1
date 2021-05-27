@@ -195,6 +195,7 @@ Function ARM64-Ronin-PreRun {
       (Get-Content -path $nodes_def) -replace 'roles::role', "roles::$role" | Set-Content $nodes_def
     }
     if (!(Test-path $secrets)) {
+      mkdir $env:systemdrive\secrets
       Copy-item -path $secret_src -destination $secrets -recurse -force
     }
 
