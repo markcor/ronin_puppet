@@ -60,8 +60,6 @@ function ARM64-Install-Prerequ {
     write-host Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
     write-host New-Item -path $env:systemdrive\scratch -ItemType "directory"
 
-    Read-Host "Enusre c:\bootstrap\secrets\vault.yam is present, and then press eneter to continue"
-
     New-Item -path $env:systemdrive\scratch -ItemType "directory"
     Set-location -path $work_dir
     Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
