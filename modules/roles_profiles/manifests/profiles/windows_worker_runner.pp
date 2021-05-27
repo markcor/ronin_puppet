@@ -51,6 +51,14 @@ class roles_profiles::profiles::windows_worker_runner {
                     $worker_group          = lookup('win-worker.taskcluster.worker_group')
                     $worker_id             = $facts['networking']['hostname']
                 }
+                'static': {
+                    $taskcluster_root_url  = lookup('windows.taskcluster.root_url')
+                    $client_id             = lookup('win-worker.taskcluster.client_id')
+                    $access_token          = lookup('taskcluster_access_token')
+                    $worker_pool_id        = lookup('win-worker.taskcluster.worker_pool_id')
+                    $worker_group          = lookup('win-worker.taskcluster.worker_group')
+                    $worker_id             = $facts['networking']['hostname']
+                }
                 default: {
                     $taskcluster_root_url  = undef
                     $client_id             = undef
