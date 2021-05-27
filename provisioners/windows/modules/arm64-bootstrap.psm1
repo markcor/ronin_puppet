@@ -190,14 +190,14 @@ Function ARM64-Ronin-PreRun {
 
     ARM64-Clone-Ronin
 
-    if (!(Test-path $nodes_def)) {
+    #if (!(Test-path $nodes_def)) {
       Copy-item -path $nodes_def_src -destination $nodes_def -force
       (Get-Content -path $nodes_def) -replace 'roles::role', "roles::$role" | Set-Content $nodes_def
-    }
-    if (!(Test-path $secrets)) {
+    #}
+    #if (!(Test-path $secrets)) {
       mkdir $env:systemdrive\secrets
       Copy-item -path $secret_src -destination $secrets -recurse -force
-    }
+    #}
 
     ########Set-ItemProperty -Path "$sentry_reg\SecurityHealthService" -name "start" -Value '4' -Type Dword
     ########Set-ItemProperty -Path "$sentry_reg\sense" -name "start" -Value '4' -Type Dword
