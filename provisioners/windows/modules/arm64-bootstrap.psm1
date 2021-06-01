@@ -57,6 +57,18 @@ function ARM64-Install-Prerequ {
   }
   process {
 
+    #set power options now to allow uninterupted bootstrap
+    powercfg.exe /setactive a1841308-3541-4fab-bc81-f71556f20b4a
+    powercfg /x -hibernate-timeout-ac 0
+
+    powercfg /x -hibernate-timeout-dc 0
+    powercfg /x -disk-timeout-ac 0
+    powercfg /x -disk-timeout-dc 0
+    powercfg /x -monitor-timeout-ac 0
+    powercfg /x -monitor-timeout-dc 0
+    Powercfg /x -standby-timeout-ac 0
+    powercfg /x -standby-timeout-dc 0
+
     write-host Invoke-WebRequest $ext_src/ARM64Bootstrap.zip  -OutFile $work_dir\BootStrap.zip -UseBasicParsing
     write-host New-Item -path $env:systemdrive\scratch -ItemType "directory"
 

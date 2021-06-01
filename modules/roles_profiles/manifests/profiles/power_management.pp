@@ -16,6 +16,9 @@ class roles_profiles::profiles::power_management {
                 }
             }
             if $facts['os']['hardware'] == 'i686' {
+                # power and sleep option are set durring bootstrap for arm64
+                # in the ARM64-Install-Prerequ function
+                # this prevents intteruptions durring bootstrapping
                 include win_os_settings::high_performance_reg
             }
             # Bug List
