@@ -50,6 +50,9 @@ class win_taskcluster::worker_runner (
         file { $runner_yml:
             content   => epp('win_taskcluster/standalone_runner.yml.epp'),
         }
+        file { "${worker_runner_dir}\\manifest_token.txt":
+            content => $access_token,
+        }
     } elsif $provider == 'static' {
         file { $runner_yml:
             content   => epp('win_taskcluster/static_runner.yml.epp'),
