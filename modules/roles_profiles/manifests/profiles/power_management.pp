@@ -8,9 +8,15 @@ class roles_profiles::profiles::power_management {
         'Darwin': {
             include macos_mobileconfig_profiles::power_management
         }
+
         'Windows': {
-            class { 'windows::power_scheme':
-                ensure => 'High performance',
+            if $facts['os']['hardware'] != 'i686' {
+                class { 'windows::power_scheme':
+                    ensure => 'High performance',
+                }
+            }
+            if $facts['os']['hardware'] == 'i686' {
+                include win_os_settings::high_performance_reg
             }
             # Bug List
             # https://bugzilla.mozilla.org/show_bug.cgi?id=1524436
