@@ -49,9 +49,6 @@ class roles_profiles::profiles::windows_worker_runner {
                     $worker_pool_id        = lookup('win-worker.taskcluster.worker_pool_id')
                     $worker_group          = lookup('win-worker.taskcluster.worker_group')
                     $worker_id             = $facts['networking']['hostname']
-                    file { "${generic_worker_dir}\\standalone_token.txt}":
-                        content => " standalone  my tok is ${access_token}",
-                    }
                 }
                 'static': {
                     $taskcluster_root_url  = lookup('windows.taskcluster.root_url')
@@ -60,9 +57,6 @@ class roles_profiles::profiles::windows_worker_runner {
                     $worker_pool_id        = lookup('win-worker.taskcluster.worker_pool_id')
                     $worker_group          = lookup('win-worker.taskcluster.worker_group')
                     $worker_id             = $facts['networking']['hostname']
-                    file { "${generic_worker_dir}\\static_token.txt}":
-                        content => " static  my tok is ${access_token}",
-                    }
                 }
                 default: {
                     $taskcluster_root_url  = undef
@@ -71,9 +65,6 @@ class roles_profiles::profiles::windows_worker_runner {
                     $worker_pool_id        = undef
                     $worker_group          = undef
                     $worker_id             = undef
-                    file { "${generic_worker_dir}\\NOT_token.txt}":
-                        content => " NOT  my tok is ${access_token}",
-                    }
                 }
             }
 

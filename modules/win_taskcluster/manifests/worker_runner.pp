@@ -50,16 +50,22 @@ class win_taskcluster::worker_runner (
         file { $runner_yml:
             content   => epp('win_taskcluster/standalone_runner.yml.epp'),
         }
-        file { "${worker_runner_dir}\\manifest_token.txt":
-            content => $access_token,
+        file { "${worker_runner_dir}\\standalone_manifest_token.txt":
+            content => " standalone ${access_token}",
         }
     } elsif $provider == 'static' {
         file { $runner_yml:
             content   => epp('win_taskcluster/static_runner.yml.epp'),
         }
+        file { "${worker_runner_dir}\\static_manifest_token.txt":
+            content => " static ${access_token}",
+        }
     } else {
         file { $runner_yml:
             content   => epp('win_taskcluster/runner.yml.epp'),
+        }
+        file { "${worker_runner_dir}\\NOT_manifest_token.txt":
+            content => " NOT ${access_token}",
         }
     }
     # Worker-runner/Go need the config file to have UNIX-style line endings
