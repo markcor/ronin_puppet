@@ -58,9 +58,7 @@ function ARM64-Install-Prerequ {
   process {
 
     #set power options now to allow uninterupted bootstrap
-    powercfg.exe /setactive a1841308-3541-4fab-bc81-f71556f20b4a
     powercfg /x -hibernate-timeout-ac 0
-
     powercfg /x -hibernate-timeout-dc 0
     powercfg /x -disk-timeout-ac 0
     powercfg /x -disk-timeout-dc 0
