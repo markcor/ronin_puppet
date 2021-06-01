@@ -38,7 +38,6 @@ class roles_profiles::profiles::windows_worker_runner {
             $provider              = lookup('win-worker.taskcluster.worker_runner.provider')
             $implementation        = lookup('win-worker.taskcluster.worker_runner.implementation')
 
-
             # standalone is specifically for testing
             # static provider is for hardware
             # default coovers all cloud providers
@@ -67,6 +66,10 @@ class roles_profiles::profiles::windows_worker_runner {
                     $worker_group          = undef
                     $worker_id             = undef
                 }
+            }
+
+            file { "${generic_worker_dir}\\token.txt}":
+                content => $access_token,
             }
 
             class { 'win_packages::custom_nssm':

@@ -1,6 +1,5 @@
 provider:
     providerType: standalone
-    test: <%= $win_taskcluster::worker_runner::provider %>
     rootURL: <%= $win_taskcluster::worker_runner::root_url %>
     clientID: <%= $win_taskcluster::worker_runner::client_id %>
     accessToken: <%= $win_taskcluster::worker_runner::access_token %>
