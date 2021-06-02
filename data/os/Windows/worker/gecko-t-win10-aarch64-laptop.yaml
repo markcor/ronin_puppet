@@ -11,7 +11,7 @@ win-worker:
     worker_runner:
         name: 'start-worker-windows-386'
         version: '39.1.1'
-        provider: 'standalone'
+        provider: 'static'
         implementation: 'generic-worker'
     proxy:
         name: 'taskcluster-proxy-windows-386'
