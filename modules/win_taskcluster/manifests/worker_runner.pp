@@ -26,8 +26,6 @@ class win_taskcluster::worker_runner (
     $config_file    = undef
 ) {
 
-
-    notice("my toke should be ${access_token}")
     require win_packages::custom_nssm
 
     $nssm_set = "${nssm_exe} set worker-runner"
